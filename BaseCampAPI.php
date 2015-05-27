@@ -2,6 +2,7 @@
 
 /*
  * This is the component fot Yii 1 that allows to interact with the BaseCamp API easily
+ * Author: David Creixell Mediante
  */
 
 class BaseCampUserAPI extends CApplicationComponent
