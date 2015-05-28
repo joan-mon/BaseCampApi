@@ -4,7 +4,7 @@
  * This is the component fot Yii 1 that allows to interact with the BaseCamp API easily
  */
 
-class BaseCampUserAPI extends CApplicationComponent
+class BaseCampAPI extends CApplicationComponent
 {
 
     const PRODUCTION_URL = "http://api.davidcreixell.info/v1/";
@@ -127,7 +127,7 @@ class BaseCampUserAPI extends CApplicationComponent
             'phone' => $phone,
             'first_name' => $name
         );
-        if ( $params!=null)
+        if ( $params != null )
             $fields['extra_params'] = json_encode($params);
 
         // Do the request and return the result
@@ -289,7 +289,7 @@ class BaseCampUserAPI extends CApplicationComponent
                 if ( intval($info['http_code']) < 300 ) {
                     return json_decode($result);
                 }  else {
-                    Yii::app()->BaseCampUserAPI->doLogout();
+                    Yii::app()->BaseCampAPI->doLogout();
                     return false;
                 }
             }
@@ -339,7 +339,7 @@ class BaseCampUserAPI extends CApplicationComponent
 
                     return json_decode($result);
                 } else {
-                    Yii::app()->BaseCampUserAPI->doLogout();
+                    Yii::app()->BaseCampAPI->doLogout();
                     return false;
                 }
             }
