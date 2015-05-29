@@ -114,7 +114,7 @@ class BaseCampAPI extends CApplicationComponent
 
     }
 
-    function registerUser($email, $password, $phone, $name, $params=null)
+    function registerUser($email, $password, $phone, $name, $role = 10, $params=null)
     {
 
         // Set the endpoint
@@ -125,7 +125,8 @@ class BaseCampAPI extends CApplicationComponent
             'email' => $email,
             'password' => $password,
             'phone' => $phone,
-            'first_name' => $name
+            'first_name' => $name,
+            'role' => $role
         );
         if ( $params != null )
             $fields['extra_params'] = json_encode($params);
