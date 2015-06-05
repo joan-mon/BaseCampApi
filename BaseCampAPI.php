@@ -145,7 +145,7 @@ class BaseCampAPI extends CApplicationComponent
         $fields['template_name'] = $template_name;
 
         // Do the request and return the result
-        return self::_doRequest($url, $fields);
+        return self::_doAdminRequest($url, $fields);
 
     }
 
