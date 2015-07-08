@@ -7,7 +7,7 @@
 class BaseCampAPI extends CApplicationComponent
 {
 
-    const PRODUCTION_URL = "http://api.davidcreixell.info/v1/";
+    const PRODUCTION_URL = "http://api.bcamp.es/v1/";
     const SANDBOX_URL = "http://api.basecamp.localhost/v1/";
 
     var $app_key;
