@@ -155,13 +155,6 @@ class BaseCampAPI extends CApplicationComponent
         // Set the endpoint
         $url = self::getUrl()."users/update";
 
-        echo "URL: " . $url . "<br />";
-
-        echo "AppKey: " . $this->app_key . "<br />";
-        echo "sessionId: " . $sessionId . "<br />";
-
-        echo "Content: " . json_encode($values);
-
         // Do the request and return the result
         return self::_doRequest($url, $values, $sessionId);
 
