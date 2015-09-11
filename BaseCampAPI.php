@@ -163,7 +163,7 @@ class BaseCampAPI extends CApplicationComponent
         echo "Content: " . json_encode($values);
 
         // Do the request and return the result
-        return self::_doRequest($url, $values);
+        return self::_doRequest($url, $values, $sessionId);
 
     }
 
@@ -290,7 +290,6 @@ class BaseCampAPI extends CApplicationComponent
                 if ( intval($info['http_code']) < 300 ) {
                     return json_decode($result);
                 }  else {
-                    throw new Exception("Error executing request to BaseCamp: " . json_encode($result));
                     Yii::app()->BaseCampAPI->doLogout();
                     return false;
                 }
