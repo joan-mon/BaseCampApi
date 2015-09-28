@@ -194,7 +194,7 @@ class BaseCampAPI extends CApplicationComponent
         $data = file_get_contents($path, true);
         $base64 = base64_encode($data);
 
-        $values["file"] = "file_in_base_64";
+        $values["file"] = $base64;
         $values["type"] = self::getFileType($file_local_path);
 
         $values["objectId"] = $objectId;
@@ -202,10 +202,8 @@ class BaseCampAPI extends CApplicationComponent
         // Set the endpoint
         $url = self::getUrl()."files/saveimage";
 
-        $values_in_json = json_encode($values);
-        $values_in_json = str_replace("file_in_base_64",$base64,$values_in_json);
-
-        return self::_doAdminRequest($url, $values_in_json, count($values));
+        // Do the request and return the result
+        return self::_doAdminRequest($url, $values);
 
     }
 
@@ -315,56 +313,6 @@ class BaseCampAPI extends CApplicationComponent
         //set the url, number of POST vars, POST data
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, count($fields));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        //execute post
-        $result = curl_exec($ch);
-
-        if(!curl_errno($ch))
-        {
-            $info = curl_getinfo($ch);
-
-            curl_close($ch);
-
-            if (empty($info['http_code'])) {
-                return false;
-            } else {
-                if ( intval($info['http_code']) < 300 ) {
-
-                    return json_decode($result);
-                } else {
-                    Yii::app()->BaseCampAPI->doLogout();
-                    return false;
-                }
-            }
-
-        } else {
-            curl_close($ch);
-            return false;
-        }
-
-    }
-
-    private function _doAdminRequestInJson($url, $json_payload, $fields_count)
-    {
-        // Prepare the info for the submit to the API
-        $fields_string = $json_payload;
-
-        //open connection
-        $ch = curl_init();
-
-        // Create the headers array
-        $headers = array();
-        $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Content-Length: ' . strlen($fields_string);
-        $headers[] = 'AppKey: '.$this->app_key;
-        $headers[] = 'AppSecret: '.$this->app_secret;
-
-        //set the url, number of POST vars, POST data
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, $fields_count);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
