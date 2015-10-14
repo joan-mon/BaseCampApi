@@ -280,12 +280,11 @@ class BaseCampAPI extends CApplicationComponent
             if (empty($info['http_code'])) {
                 return false;
             } else {
-                if ( intval($info['http_code']) < 300 ) {
-                    return json_decode($result);
-                }  else {
-                    Yii::app()->BaseCampAPI->doLogout();
-                    return false;
-                }
+              if ( intval($info['http_code']) < 300 ) {
+                  return ["success" => true, "result" => json_decode($result)];
+              } else {
+                  return ["success" => false, "result" => json_decode($result)];
+              }
             }
 
         } else {
@@ -330,11 +329,9 @@ class BaseCampAPI extends CApplicationComponent
                 return false;
             } else {
                 if ( intval($info['http_code']) < 300 ) {
-
-                    return json_decode($result);
+                    return ["success" => true, "result" => json_decode($result)];
                 } else {
-                    Yii::app()->BaseCampAPI->doLogout();
-                    return false;
+                    return ["success" => false, "result" => json_decode($result)];
                 }
             }
 
