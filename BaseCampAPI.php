@@ -52,7 +52,7 @@ class BaseCampAPI extends CApplicationComponent
         $result = self::_doRequest($url, $fields);
 
         // Return true if we have a token
-        if ( isset ($result) && $result['sucess'] && $result ) {
+        if ( isset ($result) && isset($result['sucess']) && $result && isset($result['result']->sessionId) ) {
             return $result['result']->sessionId;
         } else {
             return false;
